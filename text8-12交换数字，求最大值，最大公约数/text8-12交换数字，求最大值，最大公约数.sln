@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "text8-12交换数字，求最大值，最大公约数", "text8-12交换数字，求最大值，最大公约数\text8-12交换数字，求最大值，最大公约数.vcxproj", "{84425B2B-9629-4978-9231-9D6819279BE8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84425B2B-9629-4978-9231-9D6819279BE8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{84425B2B-9629-4978-9231-9D6819279BE8}.Debug|Win32.Build.0 = Debug|Win32
+		{84425B2B-9629-4978-9231-9D6819279BE8}.Release|Win32.ActiveCfg = Release|Win32
+		{84425B2B-9629-4978-9231-9D6819279BE8}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
