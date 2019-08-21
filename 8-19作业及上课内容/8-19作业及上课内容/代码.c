@@ -1,6 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
+#include<assert.h>
 //int Fib(int n)
 //{
 //	if (n <= 2)
@@ -57,15 +59,19 @@
 
 
 ////2.编写一个函数实现n^k，使用递归实现
-//int my_power(int n, int k)
+//double my_power(int n, int k)
 //{
-//	int result = 0;
-//	while (k!=0)
+//	if (k == 0)
+//		return 1.0;
+//	else if (k > 0)
 //	{
-//		result = n *n;
-//		k--;
+//		if (k >= 1)
+//			return n*my_power(n, k - 1);
+//		else
+//			return 1.0;
 //	}
-//	return result;
+//	else
+//		return 1.0/ my_power(n, -k);
 //}
 //int main()
 //{
@@ -73,7 +79,7 @@
 //	int k = 0;
 //	printf("请输入n和k:> ");
 //	scanf("%d%d", &n, &k);
-//	printf("%d\n", my_power(n, k));
+//	printf("%lf\n", my_power(n, k));
 //	return 0;
 //}
 
@@ -90,7 +96,7 @@
 //}
 //int main()
 //{
-//	int n = 0;
+//	unsigned int n = 0;
 //	scanf("%d", &n);
 //	printf("%d\n", DigitSum(n));
 //	return 0;
@@ -100,20 +106,36 @@
 //4. 编写一个函数 reverse_string(char * string)（递归实现）
 //实现：将参数字符串中的字符反向排列。
 //要求：不能使用C函数库中的字符串操作函数。
-//char reverse_string(char *string)
+//int my_strlen(const char *str)
 //{
-////从最后一个开始从前往后打印，看起来就像反向排列了.从第一个开始找'\0'，找到后从后往前打印
-//	if (*string != '\0')
-//		reverse_string(string + 1);
-//	printf("%c", *string);
+//	assert(str != NULL);
+//	int count = 0 ;
+//	while (*str++)
+//	{
+//		count++;
+//	}
+//	return count;
+//}
+//void reverse_string(char *str)
+//{
+//	int len = my_strlen(str);
+//	char tmp = *str;
+//	int sz = 0;
+//	*str = *(len + str - 1);//先将a与f交换，再将之间的部分也交换。但是将f放到开始位置后要先将末尾改为\0，这样才能求出中间字符串的长度
+//	*(len + str - 1) = '\0';
+//	sz = my_strlen(str + 1);
+//	if (sz>=2)
+//	reverse_string(str + 1);//注意：这里的str+1不能用++str或者str++替换，因为++是操作符，会使str的值发生改变，影响后续操作
+//	*(len + str - 1) = tmp;
 //}
 //int main()
 //{
-//	char arr[] = "hello bit";
+//	char arr[] = "abcdef";
 //	reverse_string(arr);
+//	printf("%s\n", arr);
 //	return 0;
 //}
-//
+
 
 //5.递归和非递归分别实现strlen
 ////递归
@@ -278,25 +300,25 @@
 //输入例子 :
 //1999 2299
 //输出例子 : 7
-int binary_different(unsigned int i, unsigned int j)
-{
-	int count = 0;
-	int tmp = 0;
-	int n = 0;
-	tmp = i^j;
-	for (n = 0; n < 32; n++)
-	{
-		if (1 == ((tmp >> n) & 1))
-			count++;
-	}
-	return count;
-	
-}
-int main()
-{
-	int i = 0;
-	int j = 0;
-	scanf("%d%d", &i, &j);
-	printf("%d\n",binary_different(i,j));
-	return 0;
-}
+//int binary_different(unsigned int i, unsigned int j)
+//{
+//	int count = 0;
+//	int tmp = 0;
+//	int n = 0;
+//	tmp = i^j;
+//	for (n = 0; n < 32; n++)
+//	{
+//		if (1 == ((tmp >> n) & 1))
+//			count++;
+//	}
+//	return count;
+//	
+//}
+//int main()
+//{
+//	int i = 0;
+//	int j = 0;
+//	scanf("%d%d", &i, &j);
+//	printf("%d\n",binary_different(i,j));
+//	return 0;
+//}
