@@ -10,7 +10,8 @@ void menu()
 }
 void game()
 {
-
+	char mine[ROWS][COLS];
+	char show[ROWS][COLS];
 }
 void test()
 {
