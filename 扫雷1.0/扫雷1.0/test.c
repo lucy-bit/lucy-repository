@@ -2,16 +2,25 @@
 #include "game.h"
 void menu()
 {
-	printf("****************************");
-	printf("****      1.play        ****");
-	printf("****      0.exit        ****");
-	printf("****************************");
+	printf("****************************\n");
+	printf("****      1.play        ****\n");
+	printf("****      0.exit        ****\n");
+	printf("****************************\n");
 
 }
 void game()
 {
-	char mine[ROWS][COLS];
-	char show[ROWS][COLS];
+	char mine[ROWS][COLS] = { 0 };
+	char show[ROWS][COLS] = { 0 };
+	//∆Â≈Ã≥ı ºªØ
+	Initboard(mine, ROWS, COLS,'0');
+	Initboard(show, ROWS, COLS,'*');
+	//¥Ú”°∆Â≈Ã
+	Displayboard(show, ROW, COL);
+	//¬Ò¿◊
+	SetMine(mine, ROWS, COLS);
+
+
 }
 void test()
 {

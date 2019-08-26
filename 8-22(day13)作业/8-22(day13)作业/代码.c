@@ -36,18 +36,42 @@
 //		}
 //	}
 //}
-//int main()
-//{
-//	int arr[] = { 0,1,2,3,4,5,6,7,8,9 };
-//	int i = 0;
-//
-//	Adjust(arr);
-//	for (i = 0; i < 10; i++)
-//	{
-//		printf("%d ", arr[i]);
-//	}
-//	return 0;
-//}
+void Adjust(int arr[],int sz)
+{
+	int i = 0;
+	int j = sz - 1;
+	while (i<j)
+	{
+		int tmp = 0;
+		while (i<j && arr[i]%2 != 0)
+		{
+			i++;
+		}
+		while (i<j && arr[j]%2 == 0)
+		{
+			j--;
+		}
+		if (i < j)
+		{
+			tmp = arr[i];
+			arr[i]= arr[j];
+			arr[j] = tmp;
+		}	
+	}
+}
+int main()
+{
+	//int arr[] = { 0,1,2,3,4,5,6,7,8,9 };
+	int arr[] = { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 };
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	int i = 0;
+	Adjust(arr,sz);
+	for (i = 0; i < 10; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	return 0;
+}
 
 //2.
 //杨氏矩阵 
@@ -70,26 +94,49 @@
 //4 5 6
 //7 8 9
 
-//分析：从第一行第一个元素开始判断，若相等返回该值；
-//									若大于该数，与该行最后一个数比较
-//																	若相等，返回该值
-//																	若小于该数，倒着往前依次比较
-//																	若大于该数，转向下一行仍按照这种方法比较
-//									若小于该数，则要查找的数字不存在
-int Check(int(*p)[3], int n)
-{
-	if (n == **p)
-	{
-		return 1;
-	}
-	else if ()
-}
-int main()
-{
-	int arr[3][3] = { 1, 2, 3, 2, 3, 4, 3, 4, 5 };
-	int n = 0;
-	int ret = 0;
-	scanf("%d", &n);
-	ret = Check(arr, n);
-	return 0;
-}
+//分析：从右上角（或左下角）元素p开始判断，若p<该数字，p所在行不再考虑，row++，接着从右上角开始判断
+//                                         若p>该数字，p所在列不再考虑，col--，仍从右上角开始判断
+//                                         若相等，返回1
+//    循环结束的条件：当p所在行或列越界时就说明整个数组内都没有要找的数字，返回0
+//注意：这里用到了返回型参数，传入row和col的地址，使得在函数内部就能改变两个的值，解决了返回值只有一个参数带来的问题
+// int Check(int arr[3][3],int* prow,int* pcol, int n)
+//{
+//	 int x = 0;
+//	 int y = *pcol - 1;
+//	 while (x<=*prow && y>=0)
+//	 {
+//		 if (arr[x][y] < n)
+//		 {
+//			x++;
+//		 }
+//		 else if (arr[x][y] > n)
+//		 {
+//			 y--;
+//		 }
+//		 else
+//		 {
+//			 *prow = x;
+//			 *pcol = y;
+//			 return 1;
+//		 }
+//	 }
+//	 return 0;
+//}
+//int main()
+//{
+//	int row = 3;
+//	int col = 3;
+//	int arr[3][3] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+//	int n = 0;
+//	int ret = 0;
+//	scanf("%d", &n);
+//	ret = Check(arr,&row,&col,n);
+//	if (0 == ret)
+//		printf("不存在\n");
+//	else if (1 == ret)
+//		printf("存在,下标为%d %d\n",row,col);
+//	return 0;
+//}
+
+
+

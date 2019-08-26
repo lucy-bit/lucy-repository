@@ -45,6 +45,7 @@
 //	int b = 0;
 //	scanf("%d%d", &a, &b);
 //	printf("%lf", average(a, b));
+ 
 //	return 0;
 //}
 
@@ -84,46 +85,41 @@ int my_strlen(const char * str)
 	return count;
 }
 
-void reverse2_char(char * str, char  * len)
+void reverse_string(char* start, char* end)
 {
-	while (str < len)
+	while (start<end)
 	{
-		char* start = str;
-		char*end = str;
-		char tmp = *str;
-		*str = *len;
-		*len = tmp;
-		str++;
-		len--;
+		char tmp = *start;
+		*start = *end;
+		*end = tmp;
+		start++;
+		end--;
 	}
 }
 
 
-void reverse1_char(char * start)
+void reverse(char * arr, char* len)
 {//先将整个字符串逆置，然后从开始找空格字符，找到后将此下标设为start，接着找下个空格字符，将其设为end，逆置这个单词
-	char * end = start;
-	while (*start)
+	reverse_string(arr, len);//haha hehe
+	while (*end)
 	{
-		while (*str != ' ')
+		start = end;
+		while (*end != ' ' && *end != '\0')
 		{
-			start++;
 			end++;
 		}
-		reverse2_char(start, end);
-		start++;
+		reverse(start, end);
+		if (*end != '\0')
+			end--;
 	}
-	
 }
-
 
 int main()
 {
 	char arr[] = "student a am i";
 	int sz = my_strlen(arr);
 	char * len =arr + sz - 1;
-	reverse2_char(arr,len);
-	reverse1_char(arr);
-
-		printf("%s\n", arr);
+	reverse(arr, len);
+	printf("%s\n", arr);
 	return 0;
 }
