@@ -12,19 +12,19 @@ void game()
 {
 	char mine[ROWS][COLS] = { 0 };
 	char show[ROWS][COLS] = { 0 };
-	//棋盘初始化
-	Initboard(mine, ROWS, COLS,'0');
+	Initboard(mine, ROWS, COLS,'0');//棋盘初始化
 	Initboard(show, ROWS, COLS,'*');
-	//打印棋盘
+	//Displayboard(mine, ROW, COL);//可不打印
 	Displayboard(show, ROW, COL);
-	//埋雷
-	SetMine(mine, ROWS, COLS);
-
+	SetMine(mine, ROW, COL);//布置雷
+	Displayboard(mine, ROW, COL);
+	FindMine(mine, show, ROW, COL);//排雷
 
 }
 void test()
 {
 	int input = 0;
+	srand((unsigned int)time(NULL));
 	do
 	{
 		menu();
