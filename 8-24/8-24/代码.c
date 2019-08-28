@@ -53,19 +53,19 @@
 //一组数据中只有一个数字出现了一次。其他所有数字都是成对出现的。
 //请找出这个数字。（使用位运算）
 
-//int main()
-//{
-//	int arr[9] = { 1, 2, 3, 4, 5, 1, 2, 3, 4 };
-//	int i = 0;
-//	int result = 0;
-//	for (i = 0; i < 9; i++)
-//	{
-//		result ^= arr[i];
-//	}
-//	
-//	printf("%d\n", result);
-//	return 0;
-//}
+int main()
+{
+	int arr[9] = "1,2,3,4,5,1,2,3,4";
+	int i = 0;
+	int result = 0;
+	for (i = 0; i < 9; i++)
+	{
+		result ^= arr[i];
+	}
+	
+	printf("%d\n", result);
+	return 0;
+}
 
 
 
@@ -74,55 +74,55 @@
 //			要求：
 //			不能使用库函数。
 //			只能开辟有限个空间（空间个数和字符串的长度无关）。
-int my_strlen(const char * str)
-{
-	assert(str != NULL);
-	int count = 0;
-	while (*str++)
-	{
-		count++;
-	}
-	return count;
-}
-
-void reverse_string(char* start, char* end)
-{
-	while (start<end)
-	{
-		char tmp = *start;
-		*start = *end;
-		*end = tmp;
-		start++;
-		end--;
-	}
-}
-
-
-void reverse(char * arr, char* len)
-{//先将整个字符串逆置，然后从开始找空格字符，找到后将此下标设为start，接着找下个空格字符，将其设为end，逆置这个单词
-	reverse_string(arr, len);//haha hehe
-	char* start = NULL;
-	char* end = len;
-	while (*end)
-	{
-		start = end;
-		while (*end != ' ' && *end != '\0')
-		{
-			end++;
-		}
-		reverse(start, end);
-		if (*end != '\0')
-			end--;
-	}
-}
-
-int main()
-{
-	char arr[] = "student a am i";
-	//char * arr = "student a am i";不能这样定义，""里的是常量字符串，不可改变，必须定义数组
-	int sz = my_strlen(arr);
-	char * len = arr + sz - 1;
-	reverse(arr, len);
-	printf("%s\n", arr);
-	return 0;
-}
+//int my_strlen(const char * str)
+//{
+//	assert(str != NULL);
+//	int count = 0;
+//	while (*str++)
+//	{
+//		count++;
+//	}
+//	return count;
+//}
+//
+//void reverse_string(char* start, char* end)
+//{
+//	while (start<end)
+//	{
+//		char tmp = *start;
+//		*start = *end;
+//		*end = tmp;
+//		start++;
+//		end--;
+//	}
+//}
+//
+//
+//void reverse(char * arr, char* len)
+//{//先将整个字符串逆置，然后从开始找空格字符，找到后将此下标设为start，接着找下个空格字符，将其设为end，逆置这个单词
+//	reverse_string(arr, len);//haha hehe
+//	char* start = NULL;
+//	char* end = len;
+//	while (*end)
+//	{
+//		start = end;
+//		while (*end != ' ' && *end != '\0')
+//		{
+//			end++;
+//		}
+//		reverse(start, end);
+//		if (*end != '\0')
+//			end--;
+//	}
+//}
+//
+//int main()
+//{
+//	char arr[] = "student a am i";
+//	//char * arr = "student a am i";不能这样定义，""里的是常量字符串，不可改变，必须定义数组
+//	int sz = my_strlen(arr);
+//	char * len = arr + sz - 1;
+//	reverse(arr, len);
+//	printf("%s\n", arr);
+//	return 0;
+//}
