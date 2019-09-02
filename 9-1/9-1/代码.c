@@ -3,19 +3,19 @@
 #include<stdio.h>
 #include<errno.h>
 #include<assert.h>
-
-void* my_memcpy(void* des, const void* src, size_t sz)
-{
-	void * ret = des;
-	assert(des && src);
-	while (sz--)
-	{
-		*(char*)des = *(char*)src;
-		++(char*)des;//因为++的优先级要高于（），也可以写成((char*)des)++
-		++(char*)src;
-	}
-	return ret;
-}
+//
+//void* my_memcpy(void* des, const void* src, size_t sz)
+//{
+//	void * ret = des;
+//	assert(des && src);
+//	while (sz--)
+//	{
+//		*(char*)des = *(char*)src;
+//		++(char*)des;//因为++的优先级要高于（），也可以写成((char*)des)++
+//		++(char*)src;
+//	}
+//	return ret;
+//}
 //int main()
 //{
 ////	/*char str[] = "nan@123.hebei";
@@ -53,20 +53,19 @@ void* my_memcpy(void* des, const void* src, size_t sz)
 //	return 0;
 //}
 
-
-//void* my_memmove(void* dest, const char* src, size_t count)
+//
+//void* my_memmove(void* dest, const void* src, size_t count)
 //{
 //	void* ret = dest;
 //	assert(dest && src);
 //	//分两种情况
-//	//若目标空间在源空间之前，从前往后移动，若目标空间在源空间或之后，从后往前移动
-//	
+//	//若目标空间在源空间之前，从前往后拷贝，若目标空间在源空间之后，从后往前拷贝
 //	if (dest < src)
 //	{
 //		//从前往后
 //		while (count--)
 //		{
-//			*((char*)dest)++ = *(char*)src++;
+//			*((char*)dest) = *(char*)src;
 //			++(char*)dest;
 //			++(char*)src;
 //		}
@@ -102,12 +101,13 @@ void* my_memcpy(void* des, const void* src, size_t sz)
 
 int main()
 {
-	int arr[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	char arr[] = "abcdef";
+	char arr1[10] = { 0 };
 	int i = 0;
-	my_memcpy(arr + 2, arr, 20);
+	memcpy(arr1, arr+5, 10);
 	for (i = 0; i < 10; i++)
 	{
-		printf("%d ", arr[i]);
+		printf("%s ", arr[i]);
 	}
 	return 0;
 }
