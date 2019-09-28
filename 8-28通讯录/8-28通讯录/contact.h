@@ -22,6 +22,7 @@ typedef struct PeoInfor
 typedef struct Contact
 {
 	//定义结构体数组来存放录入学生的信息
+	//定义结构体数组来存放学生的信息
 	PeoInfor*  date;
 	//定义整型变量记录存放了多少个学生的信息
 	int sz;
@@ -44,3 +45,4 @@ void Init(Contact *pcon);
 void DeleteContact(Contact *pcon);
 void ModifyContact(Contact *pcon);
 void ShowContact(Contact *pcon);
+
