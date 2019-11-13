@@ -36,7 +36,33 @@
         }
         return newHead.next;
     }
+//合并链表（再写一遍）
+public ListNode mergeTwoLists2(ListNode headA, ListNode headB) {
+        //要使新合成的链表是有序的，需要对合成的链表进行排序
+    ListNode newHead = new ListNode(-1);
+    ListNode tmp = newHead;
+    //循环结束的条件是headA/headB遍历完
+    while(headA != null && headB != null) {
+        //判断headA和headB的大小，将小的对应节点放在tmp后边，并且tmp和headA/headB都要向后走一个节点
+        if(headA.data < headB.data) {
+            tmp.next = headA;
+            tmp = tmp.next;
+            headA = headA.next;
+        }else {
+            tmp.next = headB;
+            tmp = tmp.next;
+            headB = headB.next;
+        }
+    }
+    //因为两个链表都是有序的，所以直接将长的链表的剩余部分插到tmp后边即可
+    if(headA == null) {
+        tmp.next = headB;
+    }else {
+        tmp.next = headA;
+    }
+    return newHead.next;
 
+}
 
     public void display2(ListNode newHead) {
         if (newHead == null) {
