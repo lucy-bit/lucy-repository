@@ -348,5 +348,21 @@ public ListNode partition(int x) {
 
 //5. 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的
 
+
+
+//2019-1114
+//找 链表的中间结点
+
+    public ListNode middleNode(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+
+
 class MySingleList {
 }
