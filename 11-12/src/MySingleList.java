@@ -362,7 +362,45 @@ public ListNode partition(int x) {
         }
         return slow;
     }
-
-
+//2019-1115
+//找倒数第k个结点
+public ListNode FindKthToTail(ListNode head,int k) {
+        ListNode fast = this.head;
+        ListNode slow = this.head;
+        if(this.head == null || k <= 0) {
+            return null;
+        }
+        for(int i = 0; i < k-1; i++) {
+            //要考虑非法情况，如果链表长度比k还小，那么直接返回null就可以
+            //所以这里要判断以下fast.next的合法性
+            if(fast.next != null) {
+                fast = fast.next;
+            }else {
+                return null;
+            }
+        }
+        while(fast != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow;
+}
+//反转单链表
+public ListNode reverseList(ListNode head) {
+        ListNode cur = head;
+        ListNode prev = null;
+        ListNode newHead = null;
+        while(cur != null) {
+            ListNode curNext = cur.next;
+            if(curNext == null) {
+                newHead = cur;
+            }
+            cur.next = prev;
+            prev = cur;
+            cur = curNext;
+        }
+        return newHead;
+}
 class MySingleList {
 }
+
