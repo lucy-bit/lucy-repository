@@ -401,6 +401,93 @@ public ListNode reverseList(ListNode head) {
         }
         return newHead;
 }
+//以给定值x为基准将链表分割成两部分，所有小于x的结点排在大于或等于x的结点之前
+public ListNode partition(ListNode pHead, int x) {
+        ListNode bs = null;
+        ListNode be = null;
+        ListNode as = null;
+        ListNode ae = null;
+        ListNode cur = this.head;
+        while(cur != null) {
+            if(cur.data < x) {
+                if(bs == null) {
+                    bs = cur;
+                    be = cur;
+                }else {
+                    be.next = cur;
+                    be = be.next;
+                }
+                cur = cur.next;
+            }else {
+                if(as == null) {
+                    as = cur;
+                    ae = cur;
+                }else {
+                    ae.next = cur;
+                    ae = ae.next;
+                }
+                cur = cur.next;
+            }
+        }
+       //如果as不为空，那么就让ae.next = null，以防出现死循环的情况
+       if(as != null) {
+            ae.next = null;
+       }
+        if(bs == null) {
+            return as;
+        }
+        be.next = as;
+        return bs;
+}
+
+
+
+//7. 在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。
+    public ListNode deleteDuplication(ListNode pHead) {
+        ListNode cur = this.head;
+        ListNode newHead = new ListNode(-1);
+        ListNode tmp = newHead;
+        while(cur != null) {
+            if(cur.next != null && cur.data == cur.next.data) {
+                while(cur.next != null && cur.data == cur.next.data) {
+                    cur = cur.next;
+                }
+                cur = cur.next;
+            }else {
+                tmp.next = cur;
+                cur = cur.next;
+                tmp = tmp.next;
+            }
+        }
+        tmp.next = null;
+        return newHead.next;
+    }
 class MySingleList {
 }
+
+
+    public ListNode deleteDuplication(ListNode pHead)
+    {
+        ListNode cur = pHead;
+        ListNode newHead = new ListNode(-1);
+        ListNode tmp = newHead;
+        if(cur == null || cur.next == null) {
+            return cur;
+        }
+        while (cur != null) {
+            //重复的节点
+            if(cur.next != null && cur.val == cur.next.val) {
+                while(cur.next != null && cur.val == cur.next.val) {
+                    cur = cur.next;
+                }
+                cur = cur.next;
+            }else {
+                tmp.next = cur;
+                tmp = tmp.next;
+                cur = cur.next;
+            }
+        }
+        tmp.next = null;
+        return newHead.next;
+    }
 
