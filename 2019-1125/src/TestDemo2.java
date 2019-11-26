@@ -64,17 +64,18 @@ class Student implements Comparable<Student> {
     //重写compareTo方法
     @Override
     public int compareTo(Student o) {
-        if (this.score > o.score) {
+      /*  if (this.score > o.score) {
             return -1;
         } else if (this.score < o.score) {
             return 1;
         } else {
             return 0;
-        }
+        }*/
+        return this.name.compareTo(o.name);
+       //可以直接调用this.name.comparaTo,是因为源代码已经自动实现了comparaTo接口
     }
 
-        //return this.name.compareTo(o.name);
-        //可以直接调用this.name.comparaTo,是因为源代码已经自动实现了comparaTo接口
+
 
         //从小到大排序,让当前的age和传进来的age进行比较
         // return this.age - o.age;
@@ -82,7 +83,7 @@ class Student implements Comparable<Student> {
         //从大到小排序
         //return o.age - this.age;
     }
-}
+
 
    /* @Override
     public int compareTo(Student o) {

@@ -13,7 +13,7 @@
     Person -> Money
     在Person的clone方法内，不仅要克隆自己本身
     还需要克隆Money
-    */
+*/
 
 class Money implements Cloneable{
    double money = 12.5;
@@ -26,7 +26,6 @@ class Money implements Cloneable{
 class Person implements Cloneable{
 
     public String name;
-//
     public Money m;
     //构造Money
     public Person() {
@@ -61,12 +60,50 @@ public class TestDemo3 {
         //声明异常
         Person person2 = (Person)person.clone();
 
-      /*  //进行捕获异常
+        //进行捕获异常
         try {
             Person person2 = (Person)person.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
-        }*/
+        }
         System.out.println(person2.name);
     }
 }
+
+
+
+
+
+
+
+/*
+class Money {
+    double money = 12.5;
+}
+class Person implements Cloneable{
+    public String name;
+    public Money m;
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public Person() {
+        this.m = new Money();
+    }
+}
+public class TestDemo3 {
+    public static void main(String[] args) throws CloneNotSupportedException {
+        Person person = new Person();
+        Person person2 = (Person)person.clone();
+        System.out.println(person.m.money);
+        System.out.println(person2.m.money);
+        System.out.println("********************");
+        person2.m.money = 99.0;
+        System.out.println(person.m.money);
+        System.out.println(person2.m.money);
+
+    }
+}
+*/
