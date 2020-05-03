@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="2020-04-12-Web-HTTP协议-Servlet-3:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/2020_04_12_Web_HTTP_Servlet_3_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="2020-04-12-Web-HTTP协议-Servlet-3/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="2020-04-12-Web-HTTP协议-Servlet-3" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
