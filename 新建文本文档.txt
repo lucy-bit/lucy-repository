@@ -1,0 +1,88 @@
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (head == nullptr) {
+            return head;
+        }
+        Node *cur = head;
+        unordered_map<Node*, Node*> ump;
+        //1. 遍历链表，将原节点作为key，拷贝节点作为value保存在map中
+        while (cur != nullptr) {
+            Node *copy = new Node(cur->val);
+            ump[cur] = copy;
+            cur = cur->next;
+        }
+        //2. 复制链表next和random指针
+        cur = head;
+        while (cur != nullptr) {
+            ump[cur]->next = ump[cur->next];
+            ump[cur]->random = ump[cur->random];
+            cur = cur->next;
+        }
+        return ump[head];
+    }
+};
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (head == nullptr) {
+            return head;
+        }
+        Node *node = head;
+        //1. 将复制节点添加到原节点后面
+        while (node != nullptr) {
+            Node *copy = new Node(node->val, nullptr, nullptr);
+            copy->next = node->next;
+            node->next = copy;
+            node = copy->next;
+        }
+        
+        //2. 复制random节点
+        node = head;
+        while (node != nullptr) {
+            if (node->random != nullptr) {
+                node->next->random = node->random->next;
+            }            
+            node = node->next->next;
+        }
+        
+        //3. 分离链表
+        node = head;
+        Node *newHead = head->next;
+        Node *newNode = newHead;
+        while (node != nullptr) {
+            node->next = node->next->next;     
+            if (newNode->next != nullptr) {
+                newNode->next = newNode->next->next;            
+            }            
+            node = node->next;
+            newNode = newNode->next;
+        }
+        return newHead;
+    }
+};
+
+class Solution {
+    public Node copyRandomList(Node head) {
+        if (head == null) {
+            return head;
+        }
+        Node cur = head;
+        HashMap<Node, Node> map = new HashMap<Node, Node>();
+        //1. 遍历链表，将原节点作为key，拷贝节点作为value保存在map中
+        while (cur != null) {
+            Node copy = new Node(cur.val);
+            map.put(cur, copy);
+            cur = cur.next;
+        }
+        //2. 复制链表next和random指针
+        cur = head;
+        while (cur != null) {
+            map.get(cur).next = map.get(cur.next);
+            map.get(cur).random = map.get(cur.random);
+            cur = cur.next;
+        }
+        return map.get(head);
+    }
+}
