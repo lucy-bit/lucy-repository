@@ -15,7 +15,7 @@ public class TestHeap {
         this.usedSize = 0;
     }
     //调整函数
-    public void adjustHeap(int root,int len) {
+    public void adjustDown(int root,int len) {
         int parent = root;
         int child = 2*parent + 1;
         while(child < len) {
@@ -44,7 +44,7 @@ public class TestHeap {
 
         //调整为大根堆
         for(int i = (this.usedSize-1-1)/2; i >= 0; i--) {
-            adjustHeap(i,this.usedSize);
+            adjustDown(i,this.usedSize);
         }
     }
 
@@ -62,6 +62,10 @@ public class TestHeap {
             }
         }
     }
+    private boolean isFull() {
+        return this.usedSize == this.elem.length;
+    }
+
     public void push(int val) {
         if(isFull()) {
             //扩容
@@ -71,7 +75,29 @@ public class TestHeap {
         this.usedSize++;
         adjustUp(this.usedSize-1);
     }
-    private boolean isFull() {
-        return this.usedSize == this.elem.length;
+
+
+    private boolean isEmpty() {
+        return this.usedSize == 0;
+    }
+    public void pop() {
+        if(isEmpty()) {
+            throw new RuntimeException("堆为空");
+        }
+        this.elem[0] = this.elem[this.usedSize-1];
+        this.usedSize--;
+        adjustDown(0,this.usedSize);
+    }
+
+    //堆排序
+    public void heapSort() {
+        int end = this.usedSize-1;
+        while(end > 0) {
+            int tmp = this.elem[0];
+            this.elem[0] = this.elem[end];
+            this.elem[end] = tmp;
+            adjustDown(0,end);
+            end--;
+        }
     }
 }
