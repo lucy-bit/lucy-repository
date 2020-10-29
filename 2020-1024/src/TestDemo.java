@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.PriorityQueue;
+import java.util.Scanner;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,6 +12,11 @@ import java.util.PriorityQueue;
  */
 public class TestDemo {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        System.out.println(str);
+    }
+    public static void main2(String[] args) {
         //PriorityQueue 当中 最小的元素 优先级更高一些
         PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();//容量默认是11
         PriorityQueue<Integer> priorityQueue2 = new PriorityQueue<>(14);//容量是14
