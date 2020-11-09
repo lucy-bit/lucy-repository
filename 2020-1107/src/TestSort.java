@@ -1,5 +1,9 @@
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Stack;
+
+import static java.sql.JDBCType.NULL;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -105,21 +109,51 @@ public class TestSort {
     }
 
     //快排
+    /*随机选择枢轴的位置，区间在low和high之间*/
+    private static int selectPivotRandom(int arr[],int low,int high)
+    {
+        //产生枢轴的位置
+        Random random = new Random();
+        int pivot = random.nextInt(high-low) + low;
+        //把枢轴位置的元素和low位置元素互换，此时可以和普通的快排一样调用划分函数
+        swap(arr,pivot,low);
+        return arr[low];
+    }
+    private static int selectPivotCommon(int[] arr,int low,int high) {
+        return arr[low];
+    }
     public static void swap(int[] arr,int a,int b) {
         int tmp = arr[a];
         arr[a] = arr[b];
         arr[b] = tmp;
+
+    }
+    private static int selectPivotMedianOfThree(int[] arr,int low,int high) {
+        int mid = (high + low) >>> 1;
+        //目标：arr[mid] < arr[left] < arr[high]
+        if(arr[mid] > arr[high]) {
+            swap(arr,mid,high);
+        }//目标：arr[mid] < arr[high]
+        if(arr[low] > arr[high]) {
+            swap(arr,low,high);
+        }//目标：arr[low] < arr[high]
+        if(arr[low] > arr[mid]) {
+            swap(arr,mid,low);
+        }//目标：arr[low] < arr[mid]
+        swap(arr,low,mid);
+        return arr[low];
     }
     public static int partition(int[] arr,int left,int right) {
         int i = left;
         int j = right;
-        int pivot = arr[left];
+        //int pivot = selectPivotRandom(arr,i,j);
+        int pivot = selectPivotCommon(arr,i,j);
         while (i < j) {
-            while (i < j && arr[i] <= pivot) {
-                i++;
-            }
             while (i < j && arr[j] >= pivot) {
                 j--;
+            }
+            while (i < j && arr[i] <= pivot) {
+                i++;
             }
 
             swap(arr, i, j);
@@ -150,6 +184,39 @@ public class TestSort {
         int pivot = partition(arr,start,end);
         quick(arr,start,pivot-1);
         quick(arr,pivot+1,end);
+    }
+
+    //采用非递归实现快排
+    public static void quickNor(int[] arr,int start,int end) {
+        int low = start;
+        int high = end;
+        //先划分
+        int pivot = partition(arr,low,high);
+        Stack<Integer> stack = new Stack<>();
+        //左边至少两个元素
+        if(pivot >low+1) {
+            stack.push(low);
+            stack.push(pivot-1);
+        }
+        //右边至少两个元素
+        if(pivot < end-1) {
+            stack.push(pivot+1);
+            stack.push(high);
+        }
+        while(!stack.empty()) {
+            //出栈的顺序不能反
+            high = stack.pop();
+            low = stack.pop();
+            pivot = partition(arr,low,high);
+            if(pivot >low+1) {
+                stack.push(low);
+                stack.push(pivot-1);
+            }
+            if(pivot < end-1) {
+                stack.push(pivot+1);
+                stack.push(high);
+            }
+        }
     }
     public static void quickSort(int[] arr) {
         quick(arr,0,arr.length-1);
@@ -205,7 +272,104 @@ public class TestSort {
         data[b] = t;
 
     }*/
-    public static void main2(String[] args) {
+//归并排序
+    //合并
+    private static void merge(int[] arr,int low,int mid,int high) {
+        int s1 = low;//表示第一个归并段的开始下标
+        int s2 = mid+1;//表示第二个归并段的开始下标
+        int len = high - low + 1;
+        int[] tmp = new int[len];//每次的归并段合并之后的数组大小
+        int i = 0;//是临时数组tmp的下标
+
+        //两个归并段都是有数据的
+        while(s1 <= mid && s2 <= high) {
+            if(arr[s1] <= arr[s2]) {
+                tmp[i++] = arr[s1++];
+            }else {
+                tmp[i++] = arr[s2++];
+            }
+        }
+        while(s1 <= mid) {
+            //能进这个循环说明第一个归并段还有数据的
+            tmp[i++] = arr[s1++];
+        }
+        while(s2 <= high) {
+            //能进这个循环说明第二个归并段还有数据的
+            tmp[i++] = arr[s2++];
+        }
+
+        //把临时数组tmp里的值，拷贝到原数组当中
+        for(int j = 0; j < len; j++) {
+            arr[low+j] = tmp[j];
+        }
+    }
+    //分解：递归过程，递归到序列区间内只有一个值算结束
+    private static void mergeSortInternal(int[] arr,int low,int high) {
+        //截至条件——区间内只有一个数据
+        if(low >= high) {
+            return;
+        }
+        int mid = (low+high) >>> 1;
+        mergeSortInternal(arr,low,mid);
+        mergeSortInternal(arr,mid+1,high);
+
+        //合并
+        merge(arr,low,mid,high);
+
+    }
+    public static void mergeSort(int[] arr) {
+        //时间复杂度：O(n*logn)
+        //空间复杂度：O(n)
+        //稳定性：稳定的排序
+        //先分解，再合并
+        mergeSortInternal(arr,0,arr.length-1);
+    }
+
+    //归并排序的非递归版本
+    private static void mergeNor(int[] arr,int gap) {
+        int[] tmp = new int[arr.length];
+        int i = 0;
+        int s1 = 0;
+        int e1 = s1 + gap - 1;
+        int s2 = e1 + 1;
+        int e2 = s2 + gap - 1 >= arr.length ? arr.length-1 : s2+gap-1;
+        while(s2 < arr.length) {
+            while(s1 <= e1 && s2 <= e2) {
+                if(arr[s1] <= arr[s2]) {
+                    tmp[i++] = arr[s1++];
+                }else {
+                    tmp[i++] = arr[s2++];
+                }
+            }
+            while(s1  <= e1) {
+                tmp[i++] = arr[s1++];
+            }
+            while(s2  <= e2) {
+                tmp[i++] = arr[s2++];
+            }
+            //走下一段
+            s1 = e2+1;
+            e1 = s1+gap-1;
+            s2 = e1+1;
+            e2 = s2 + gap - 1 >= arr.length ? arr.length-1 : s2+gap-1;
+        }
+        //走到这里，说明s2已经没有了，不确定第一个归并段是否还有数据
+        while(s1 < arr.length) {
+            tmp[i++] = arr[s1++];
+        }
+        //将临时数组tmp内的值赋给arr
+        for(int j = 0; j < tmp.length; j++) {
+            arr[j] =tmp[j];
+        }
+
+    }
+    public static void mergeSortNor(int[] arr) {
+        for(int gap = 1; gap < arr.length; gap *= 2) {
+            mergeNor(arr,gap);
+        }
+
+    }
+    public static void main3(String[] args) {
         //测试有序序列
         int[] arr = new int[10_0000];
         for(int i = 0; i < arr.length; i++) {
@@ -229,8 +393,9 @@ public class TestSort {
     public static void main(String[] args) {
         int[] arr = {12,34,1,3,5,23,56,8,0,12,44,77,88,14,15};
         int[] arr2 = {6,1,2,7,9,8,4,5,10};
-        quickSort(arr2);
+        //quickSort(arr2);
+        mergeSortNor(arr);
         //shellSort(arr);
-        System.out.println(Arrays.toString(arr2));
+        System.out.println(Arrays.toString(arr));
     }
 }
