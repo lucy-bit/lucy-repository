@@ -1,0 +1,1 @@
+# web/WEB-INF目录下，放置 Servlet 的动态资源配置文件
