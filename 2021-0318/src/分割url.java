@@ -36,7 +36,9 @@ public class 分割url {
         System.out.println(hUrl);
         //2.域名
         //3.端口
-        String rest = url.substring(i+3);
+        String test = url.substring(i+3);
+        int index = test.indexOf("/");
+        String rest = test.substring(0,index);
         String[] wUrl = rest.split(":");
         String ww = "";
         int port = 0;
@@ -52,8 +54,8 @@ public class 分割url {
         System.out.println(port);
         //4.路径
         //5.查询字符串
-        int j = rest.indexOf("/");
-        String last = rest.substring(j);
+
+        String last = test.substring(index+1);
         String path = "";
         String search = "";
         String[] paths = last.split("\\?");

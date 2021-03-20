@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- 表单主要用在，用户需要通过浏览器向服务端提交信息时 -->
+<!-- 比如： 1. 用户登录  2. 发表文章  3. 通过 github 的网页上写代码 -->
+
+<!-- 表单标签 -->
+<form method="get" action="/target">
+    <!--form里有两个属性，method以什么http方法请求，action提交到哪个url上-->
+    <!-- input 标签，来描述让用户填写的内容 -->
+    key1: <input type="text" name="key1">
+    <br>
+    key2: <input type="text" name="key2">
+    <br>
+    key3: <input type="password" name="key3">
+    <br>
+    key4: <input type="radio" name="key4">
+    <br>
+
+    <!-- 需要一个按钮(button) 进行提交 -->
+    <input type="submit"value="input 标签提交" />
+    <button type="submit">button 标签提交</button>
+</form>
+</body>
+</html>
