@@ -4,7 +4,6 @@ import com.nannan.standard.Servlet;
 import com.nannan.standard.ServletException;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.*;
 
 /**
@@ -35,12 +34,12 @@ public class Context {
         this.config = reader.read(name);
     }
 
-    List<Class<?>>  servletClassList = new ArrayList<>();
+    List<Class<?>> servletClassList = new ArrayList<>();
     public void loadServletClasses() throws ClassNotFoundException {
         Set<String> servletClassNames = new HashSet<>(config.servletNameToServletClassNameMap.values());
-        for(String servletClassName : servletClassNames) {
-            Class<?> sevletClass = webappClassLoader.loadClass(servletClassName);
-            servletClassList.add(sevletClass);
+        for (String servletClassName : servletClassNames) {
+            Class<?> servletClass = webappClassLoader.loadClass(servletClassName);
+            servletClassList.add(servletClass);
         }
     }
 
@@ -58,5 +57,24 @@ public class Context {
         for(Servlet servlet : servletList) {
             servlet.init();
         }
+    }
+
+    public void destroyServlets() {
+        for (Servlet servlet : servletList) {
+            servlet.destroy();
+        }
+    }
+
+    public Servlet get(String servletPath) {
+        String servletName = config.urlToServletNameMap.get(servletPath);
+        String servletClassName = config.servletNameToServletClassNameMap.get(servletName);
+        for (Servlet servlet : servletList) {
+            String currentServletClassName = servlet.getClass().getCanonicalName();
+            if (currentServletClassName.equals(servletClassName)) {
+                return servlet;
+            }
+        }
+
+        return null;
     }
 }
