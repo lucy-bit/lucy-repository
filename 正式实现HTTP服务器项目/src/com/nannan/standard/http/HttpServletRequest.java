@@ -9,7 +9,7 @@ import com.nannan.standard.ServletRequest;
  * Date: 2021 -03 -30
  * Time: 16:38
  */
-public interface HttpServletRequest  extends ServletRequest {
+public interface HttpServletRequest extends ServletRequest {
     Cookie[] getCookies();
 
     String getHeader(String name);
@@ -21,5 +21,5 @@ public interface HttpServletRequest  extends ServletRequest {
     String getRequestURI();
 
     HttpSession getSession();
-
 }
+

@@ -1,15 +1,10 @@
 package com.nannan.tomcat;
 
-
 import com.nannan.standard.Servlet;
 import com.nannan.standard.ServletException;
 import com.nannan.tomcat.ConfigReader;
 import com.nannan.tomcat.Context;
 import com.nannan.tomcat.RequestResponseTask;
-//import com.nannan.tomcat.servlets.DefaultServlet;
-//import com.nannan.tomcat.servlets.NotFoundServlet;
-
-import com.nannan.standard.Servlet;
 import com.nannan.tomcat.servlets.DefaultServlet;
 import com.nannan.tomcat.servlets.NotFoundServlet;
 
@@ -19,13 +14,7 @@ import java.net.Socket;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-/**
- * Created with IntelliJ IDEA.
- * Description:
- * User: 86187
- * Date: 2021 -03 -30
- * Time: 18:26
- */
+
 public class HttpServer {
     public static DefaultServlet defaultServlet = new DefaultServlet();
     public static NotFoundServlet notFoundServlet = new NotFoundServlet();
@@ -42,11 +31,10 @@ public class HttpServer {
     }
 
     private static void startServer() throws IOException {
-        //线程池——大小为10
         ExecutorService threadPool = Executors.newFixedThreadPool(10);
-        ServerSocket serverSocket = new ServerSocket(8080);//监听8080端口
+        ServerSocket serverSocket = new ServerSocket(8080);
 
-        // 2.每次循环，都要处理一个请求
+        // 2. 每次循环，处理一个请求
         while (true) {
             Socket socket = serverSocket.accept();
             Runnable task = new RequestResponseTask(socket);
@@ -64,7 +52,6 @@ public class HttpServer {
         }
     }
 
-
     private static void initServer() throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException, ServletException {
         //1.扫描所有的Context
         scanContexts();
@@ -72,7 +59,7 @@ public class HttpServer {
         parseContextConf();
         //3. 执行类的加载——反射
         loadServletClasses();
-        //4. 实例化所有的 servletObjects 对象
+        //4. 实例化所有的 servletObjects 对象——调用servletClass的无参构造方法
         instantiateServletObjects();
         //5. 调用临时方法进行初始化
         initializeServletObjects();
@@ -109,14 +96,13 @@ public class HttpServer {
         }
     }
 
+
     public static final String WEBAPPS_BASE = "C:\\Users\\86187\\Java\\正式实现HTTP服务器项目\\webapps";
     public static final List<Context> contextList = new ArrayList<>();
     private static final ConfigReader configReader = new ConfigReader();
     public static final DefaultContext defaultContext = new DefaultContext(configReader);
-
-    //文件的目录扫描
     private static void scanContexts() {
-        System.out.println("第一步：扫描出所有个 contexts");
+        System.out.println("第一步：扫描出所有的 contexts");
         File webappsRoot = new File(WEBAPPS_BASE);
         //取出它下面的子目录
         File[] files = webappsRoot.listFiles();
@@ -127,6 +113,7 @@ public class HttpServer {
         // 遍历子目录文件，如果它不是目录，那么他就不是一个 web 应用
         for (File file : files) {
             if (!file.isDirectory()) {
+                // 不是目录，就不是 web 应用
                 continue;
             }
 

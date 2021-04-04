@@ -3,7 +3,7 @@ package com.nannan.webapps.dictionary;
 import com.nannan.standard.ServletException;
 import com.nannan.standard.http.HttpServletRequest;
 import com.nannan.standard.http.HttpServletResponse;
-import com.nannan.standard.http.Httpservlet;
+import com.nannan.standard.http.HttpServlet;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,7 +15,7 @@ import com.nannan.standard.http.Httpservlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class TranslateServlet extends Httpservlet {
+public class TranslateServlet extends HttpServlet {
     public TranslateServlet() {
         System.out.println("我是 TranslateServlet 的 构造方法");
     }
